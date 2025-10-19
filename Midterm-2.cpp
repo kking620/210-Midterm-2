@@ -209,8 +209,41 @@ public:
 };
 
 int main() {
-    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
+    srand(time(0));
 
+    int maxTimePeriods = 20;
+
+    ifstream fin;
+    fin.open("names.txt");
+    if (fin.good()){
+        DoublyLinkedList line;
+
+        for (int i = 0; i < maxTimePeriods; i++)
+        
+        int pHelp = rand()% 100 + 1;
+        if (pHelp <= 40)
+            line.pop_front();
+
+        int pJoin = rand()% 100 + 1;
+        if (pJoin <= 60)
+            line.push_back();
+        
+        int pEndLeave = rand()% 100 + 1;
+        if (pEndLeave <= 20)
+            line.pop_back();
+
+        int pRandLeave = rand()% 100 + 1;
+        if (pRandLeave <= 10)
+            line.delete_pos();
+
+        int pVIP = rand()% 100 + 1;
+        if (pVIP <= 10)
+            line.push_front();
+
+        fin.close();
+    }
+    else
+        cout << "File not found.\n";
     
     return 0;
 }
