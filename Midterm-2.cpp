@@ -1,7 +1,12 @@
 #include <iostream>
+#include <fstream>
+#include <cstdlib>
+#include <ctime>
+
 using namespace std;
 
-const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
+
+const int MIN_NR = 1, MAX_NR = 100, MIN_LS = 5, MAX_LS = 20;
 
 class DoublyLinkedList {
 private:
