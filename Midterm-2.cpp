@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
@@ -13,11 +14,11 @@ const int MIN_NR = 1, MAX_NR = 100, MIN_LS = 5, MAX_LS = 20;
 class DoublyLinkedList {
 private:
     struct Node {
-        int data;
+        string name;
         Node* prev;
         Node* next;
-        Node(int val, Node* p = nullptr, Node* n = nullptr) {
-            data = val; 
+        Node(string cn, Node* p = nullptr, Node* n = nullptr) {
+            name = cn; 
             prev = p;
             next = n;
         }
@@ -29,13 +30,13 @@ private:
 public:
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
 
-    void insert_after(int value, int position) {
+    void insert_after(string cn, int position) {
         if (position < 0) {
             cout << "Position must be >= 0." << endl;
             return;
         }
 
-        Node* newNode = new Node(value);
+        Node* newNode = new Node(cn);
         if (!head) {
             head = tail = newNode;
             return;
@@ -60,12 +61,12 @@ public:
         temp->next = newNode;
     }
 
-    void delete_val(int value) {
+    void delete_val(string cn) {
         if (!head) return;
 
         Node* temp = head;
         
-        while (temp && temp->data != value)
+        while (temp && temp->name != cn)
             temp = temp->next;
 
         if (!temp) return; 
@@ -120,8 +121,8 @@ public:
         delete temp;
     }
 
-    void push_back(int v) {
-        Node* newNode = new Node(v);
+    void push_back(string cn) {
+        Node* newNode = new Node(cn);
         if (!tail)
             head = tail = newNode;
         else {
@@ -131,8 +132,8 @@ public:
         }
     }
     
-    void push_front(int v) {
-        Node* newNode = new Node(v);
+    void push_front(string cn) {
+        Node* newNode = new Node(cn);
         if (!head)
             head = tail = newNode;
         else {
@@ -190,7 +191,7 @@ public:
             return;
         }
         while (current) {
-            cout << current->data << " ";
+            cout << setw(15) << current->name << " joins the line\n";
             current = current->next;
         }
         cout << endl;
@@ -203,7 +204,7 @@ public:
             return;
         }
         while (current) {
-            cout << current->data << " ";
+            cout << current->name << " joins the line\n";
             current = current->prev;
         }
         cout << endl;
@@ -220,11 +221,20 @@ int main() {
     fin.open("names.txt");
     if (fin.good()){
         string name;
-        while(getline("names.txt", name))
+        while(getline(fin, name))
+            names.push_back(name);
         
         DoublyLinkedList line;
 
-        for (int i = 0; i < maxTimePeriods; i++){
+        for (int i = 0; i < 5; i++){
+            string randName = names[rand()%names.size()];
+            line.push_back(randName);
+        }
+
+        cout << "Store opens:\n";
+        line.print();
+
+        for (int i = 1; i < maxTimePeriods; i++){
             int pHelp = rand()% 100 + 1;
             if (pHelp <= 40){
                 line.pop_front();
@@ -249,6 +259,8 @@ int main() {
             if (pVIP <= 10){
                 line.push_front();
             }
+
+            cout << setw(15) << "Resulting Line:\n";
         }
 
         fin.close();
