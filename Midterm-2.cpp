@@ -2,6 +2,8 @@
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
+#include <string>
+#include <vector>
 
 using namespace std;
 
@@ -214,31 +216,40 @@ int main() {
     int maxTimePeriods = 20;
 
     ifstream fin;
+    vector <string> names;
     fin.open("names.txt");
     if (fin.good()){
+        string name;
+        while(getline("names.txt", name))
+        
         DoublyLinkedList line;
 
-        for (int i = 0; i < maxTimePeriods; i++)
-        
-        int pHelp = rand()% 100 + 1;
-        if (pHelp <= 40)
-            line.pop_front();
+        for (int i = 0; i < maxTimePeriods; i++){
+            int pHelp = rand()% 100 + 1;
+            if (pHelp <= 40){
+                line.pop_front();
+            }
 
-        int pJoin = rand()% 100 + 1;
-        if (pJoin <= 60)
-            line.push_back();
-        
-        int pEndLeave = rand()% 100 + 1;
-        if (pEndLeave <= 20)
-            line.pop_back();
+            int pJoin = rand()% 100 + 1;
+            if (pJoin <= 60){
+                line.push_back();
+            }
 
-        int pRandLeave = rand()% 100 + 1;
-        if (pRandLeave <= 10)
-            line.delete_pos();
+            int pEndLeave = rand()% 100 + 1;
+            if (pEndLeave <= 20){
+                line.pop_back();
+            }
 
-        int pVIP = rand()% 100 + 1;
-        if (pVIP <= 10)
-            line.push_front();
+            int pRandLeave = rand()% 100 + 1;
+            if (pRandLeave <= 10){
+                line.delete_pos();
+            }
+
+            int pVIP = rand()% 100 + 1;
+            if (pVIP <= 10){
+                line.push_front();
+            }
+        }
 
         fin.close();
     }
