@@ -14,6 +14,7 @@ const int MIN_NR = 1, MAX_NR = 100, MIN_LS = 5, MAX_LS = 20;
 class DoublyLinkedList {
 private:
     struct Node {
+        //changed the int data value to be a string name value throughout our code, so that we may appropriately apply a name to the node rather than a number
         string name;
         Node* prev;
         Node* next;
@@ -204,7 +205,7 @@ public:
             cout << setw(15) << current->name << " \n";
             current = current->next;
         }
-        cout << endl << endl;
+        cout << endl;
     }
 
     void print_reverse() {
@@ -270,40 +271,51 @@ int main() {
             //simulates a 40 percent chance of being served at the front of the line
             int pHelp = rand()%(MAX_NR-MIN_NR+1)+MIN_NR;
             if (pHelp <= 40){
-                //calls the pop_front function on the line object
+                //calls the pop_front function on the doubly linked list and removes the head from our list
                 line.pop_front();
                 lineSize--;
             }
 
+            //simulates a 60 percent chance of having a new customer join the back of the line
             int pJoin = rand()%(MAX_NR-MIN_NR+1)+MIN_NR;
             if (pJoin <= 60){
+                //calls the push_back function with an argument containing a random name from our vector and adds that customer to the back of our line
                 line.push_back(names[rand()%names.size()]);
                 lineSize++;
             }
 
+            //simulates a 20 percent chance of having the customer a the back of the line leave
             int pEndLeave = rand()%(MAX_NR-MIN_NR+1)+MIN_NR;
             if (pEndLeave <= 20){
+                //calls the pop_back function on the doubly linked list and removes the tail from our list
                 line.pop_back();
                 lineSize--;
             }
 
+            //simulates a 10 percent chance of a customer having a Coffee House Gold Card to skip the rest of the line and be the next person to be served
             int pVIP = rand()%(MAX_NR-MIN_NR+1)+MIN_NR;
             if (pVIP <= 10){
+                //calls the push_front function with an argument containing a random name from our vector and adds that customer to the front of our line
                 line.push_front(names[rand()%names.size()]);
                 lineSize++;
             }
 
+            //simulates a 10 percent chance of having the customer anywhere in the line leave
             int pRandLeave = rand()%(MAX_NR-MIN_NR+1)+MIN_NR;
             if (pRandLeave <= 10){
+                //calls the delete_pos function with an argument at a random position in our line, which is calculated based on the lineSize variable
                 line.delete_pos(rand()%lineSize + 1);
                 lineSize--;
             }
 
+            //prints the resulting line after all probabilities have been calculated
             line.print();
         }
 
+        //closes the file
         fin.close();
     }
+    //if the file could not be opened, then output this message
     else
         cout << "File not found.\n";
     
