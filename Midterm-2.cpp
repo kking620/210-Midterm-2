@@ -222,34 +222,55 @@ public:
 };
 
 int main() {
+    //necessary function in order to ensure that we get randomized values every time we call this function
     srand(time(0));
 
-    ifstream fin;
+    //declaring a vector that will be populated with names from the external file
     vector <string> names;
+    
+    //opens the input file "names.txt" so that we can extract the names and populate our names vector
+    ifstream fin;
     fin.open("names.txt");
+    
+    //if we can open the input file we will proceed with the following actions
     if (fin.good()){
+        
+        //declaring a string variable that will will contain a name on the input file before being pushed onto the vector
         string name;
+
+        //while loop that continuosuly runs until we have obtained all of the names from the list.
+        //once a name is grabbed from the list, that string variable will be pushed into the names vector
         while(getline(fin, name))
             names.push_back(name);
         
+        //declaring the DoublyLinkedList class object line, that will serve as our simulated line
         DoublyLinkedList line;
 
+        //declaring and intializing the size of the line
         int lineSize = 0;
         
+        //declaring and initializing the maximum number of time steps we will perform throughout this simulation
+        int timeSteps = 20;   
+
+        //once the store opens, we will create five customers with random names from our vector and add them to our doubly linked list
         cout << "Store opens:\n";
         for (int i = 0; i < 5; i++){
             line.push_back(names[rand()%names.size()]);
             lineSize++;
         }
-        cout << endl;
-        line.print();
-        int timeSteps = 20;        
 
+        //we will then output the current line as it was filled after the store opened
+        cout << endl;
+        line.print();     
+
+        //a for loop that will continuosuly run until we have gone through the appropriate number of time steps
         for (int i = 1; i < timeSteps; i++){
             cout << setw(10) << "Time Step #" << i + 1 << endl;
             
+            //simulates a 40 percent chance of being served at the front of the line
             int pHelp = rand()%(MAX_NR-MIN_NR+1)+MIN_NR;
             if (pHelp <= 40){
+                //calls the pop_front function on the line object
                 line.pop_front();
                 lineSize--;
             }
