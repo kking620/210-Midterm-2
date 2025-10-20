@@ -48,7 +48,7 @@ public:
             temp = temp->next;
 
         if (!temp) {
-            cout << "Position exceeds list size. Node not inserted.\n";
+            cout << "Position exceeds line size. Node not inserted.\n";
             delete newNode;
             return;
         }
@@ -87,7 +87,7 @@ public:
 
     void delete_pos(int pos) {
         if (!head) {
-            cout << "List is empty." << endl;
+            cout << "Line is empty." << endl;
             return;
         }
     
@@ -152,7 +152,7 @@ public:
     void pop_front() {
 
         if (!head) {
-            cout << "List is empty." << endl;
+            cout << "Line is empty." << endl;
             return;
         }
 
@@ -171,7 +171,7 @@ public:
 
     void pop_back() {
         if (!tail) {
-            cout << "List is empty." << endl;
+            cout << "Line is empty." << endl;
             return;
         }
         Node * temp = tail;
@@ -197,7 +197,7 @@ public:
     void print() {
         Node* current = head;
         if (!current) {
-            cout << "List is empty." << endl;
+            cout << "Line is empty." << endl;
             return;
         }
         cout << setw(15) << "Resulting Line:\n";
@@ -211,7 +211,7 @@ public:
     void print_reverse() {
         Node* current = tail;
         if (!current) { 
-            cout << "List is empty." << endl;
+            cout << "Line is empty." << endl;
             return;
         }
         while (current) {
