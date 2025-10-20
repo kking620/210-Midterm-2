@@ -118,6 +118,7 @@ public:
         Node* tempPrev = temp->prev;
         tempPrev->next = temp->next;
         temp->next->prev = tempPrev;
+        cout << temp->name << " left the line\n";
         delete temp;
     }
 
@@ -130,6 +131,8 @@ public:
             newNode->prev = tail;
             tail = newNode;
         }
+
+        cout << setw(15) << newNode->name << " joins the line\n";
     }
     
     void push_front(string cn) {
@@ -197,7 +200,7 @@ public:
             return;
         }
         while (current) {
-            cout << setw(15) << current->name << " joins the line\n";
+            cout << setw(15) << current->name << " \n";
             current = current->next;
         }
         cout << endl;
@@ -220,8 +223,6 @@ public:
 int main() {
     srand(time(0));
 
-    int maxTimePeriods = 20;
-
     ifstream fin;
     vector <string> names;
     fin.open("names.txt");
@@ -229,19 +230,19 @@ int main() {
         string name;
         while(getline(fin, name))
             names.push_back(name);
-
-        string randName = names[rand()%names.size()];
         
         DoublyLinkedList line;
 
         for (int i = 0; i < 5; i++){
-            line.push_back(randName);
+            line.push_back(names[rand()%names.size()]);
         }
 
         cout << "Store opens:\n";
         line.print();
 
-        for (int i = 1; i < maxTimePeriods; i++){
+        int timeSteps = 0;
+
+        for (int i = 0; i < 20; i++){
             int pHelp = rand()% 100 + 1;
             if (pHelp <= 40){
                 line.pop_front();
@@ -249,7 +250,7 @@ int main() {
 
             int pJoin = rand()% 100 + 1;
             if (pJoin <= 60){
-                line.push_back(randName);
+                line.push_back(names[rand()%names.size()]);
             }
 
             int pEndLeave = rand()% 100 + 1;
@@ -264,9 +265,10 @@ int main() {
 
             int pVIP = rand()% 100 + 1;
             if (pVIP <= 10){
-                line.push_front(randName);
+                line.push_front(names[rand()%names.size()]);
             }
 
+            cout << setw(10) << "Time Step #" << ++timeSteps << endl;
             cout << setw(15) << "Resulting Line:\n";
             line.print();
         }
