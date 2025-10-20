@@ -199,6 +199,7 @@ public:
             cout << "List is empty." << endl;
             return;
         }
+        cout << setw(15) << "Resulting Line:\n";
         while (current) {
             cout << setw(15) << current->name << " \n";
             current = current->next;
@@ -240,43 +241,43 @@ int main() {
             line.push_back(names[rand()%names.size()]);
             lineSize++;
         }
+        cout << endl;
         line.print();
         int timeSteps = 20;        
 
-        for (int i = 0; i < timeSteps; i++){
+        for (int i = 1; i < timeSteps; i++){
             cout << setw(10) << "Time Step #" << i + 1 << endl;
             
-            int pHelp = rand()% 100 + 1;
+            int pHelp = rand()%(MAX_NR-MIN_NR+1)+MIN_NR;
             if (pHelp <= 40){
                 line.pop_front();
                 lineSize--;
             }
 
-            int pJoin = rand()% 100 + 1;
+            int pJoin = rand()%(MAX_NR-MIN_NR+1)+MIN_NR;
             if (pJoin <= 60){
                 line.push_back(names[rand()%names.size()]);
                 lineSize++;
             }
 
-            int pEndLeave = rand()% 100 + 1;
+            int pEndLeave = rand()%(MAX_NR-MIN_NR+1)+MIN_NR;
             if (pEndLeave <= 20){
                 line.pop_back();
                 lineSize--;
             }
 
-            int pVIP = rand()% 100 + 1;
+            int pVIP = rand()%(MAX_NR-MIN_NR+1)+MIN_NR;
             if (pVIP <= 10){
                 line.push_front(names[rand()%names.size()]);
                 lineSize++;
             }
 
-            int pRandLeave = rand()% 100 + 1;
+            int pRandLeave = rand()%(MAX_NR-MIN_NR+1)+MIN_NR;
             if (pRandLeave <= 10){
                 line.delete_pos(rand()%lineSize + 1);
                 lineSize--;
             }
 
-            cout << setw(15) << "Resulting Line:\n";
             line.print();
         }
 
