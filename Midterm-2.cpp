@@ -240,35 +240,41 @@ int main() {
         cout << "Store opens:\n";
         line.print();
 
-        int timeSteps = 0;
+        int lineSize = 5;
+        int timeSteps = 1;
 
         for (int i = 0; i < 20; i++){
             int pHelp = rand()% 100 + 1;
             if (pHelp <= 40){
                 line.pop_front();
+                lineSize--;
             }
 
             int pJoin = rand()% 100 + 1;
             if (pJoin <= 60){
                 line.push_back(names[rand()%names.size()]);
+                lineSize++;
             }
 
             int pEndLeave = rand()% 100 + 1;
             if (pEndLeave <= 20){
                 line.pop_back();
-            }
-
-            int pRandLeave = rand()% 100 + 1;
-            if (pRandLeave <= 10){
-                line.delete_pos(3);
+                lineSize--;
             }
 
             int pVIP = rand()% 100 + 1;
             if (pVIP <= 10){
                 line.push_front(names[rand()%names.size()]);
+                lineSize++;
             }
 
-            cout << setw(10) << "Time Step #" << ++timeSteps << endl;
+            int pRandLeave = rand()% 100 + 1;
+            if (pRandLeave <= 10){
+                line.delete_pos(rand()%lineSize + 1);
+                lineSize--;
+            }
+
+            cout << setw(10) << "Time Step #" << timeSteps++ << endl;
             cout << setw(15) << "Resulting Line:\n";
             line.print();
         }
