@@ -141,6 +141,8 @@ public:
             head->prev = newNode;
             head = newNode;
         }
+
+        cout << setw(15) << newNode->name << " (VIP) joins the front of the line\n";
     }
     
     void pop_front() {
@@ -151,6 +153,8 @@ public:
         }
 
         Node * temp = head;
+
+        cout << setw(15) << temp->name << " is served\n";
 
         if (head->next) {
             head = head->next;
@@ -167,6 +171,8 @@ public:
             return;
         }
         Node * temp = tail;
+
+        cout << setw(15) << temp->name << " (at the rear) left the line\n";
 
         if (tail->prev) {
             tail = tail->prev;
@@ -223,11 +229,12 @@ int main() {
         string name;
         while(getline(fin, name))
             names.push_back(name);
+
+        string randName = names[rand()%names.size()];
         
         DoublyLinkedList line;
 
         for (int i = 0; i < 5; i++){
-            string randName = names[rand()%names.size()];
             line.push_back(randName);
         }
 
@@ -242,7 +249,7 @@ int main() {
 
             int pJoin = rand()% 100 + 1;
             if (pJoin <= 60){
-                line.push_back();
+                line.push_back(randName);
             }
 
             int pEndLeave = rand()% 100 + 1;
@@ -252,15 +259,16 @@ int main() {
 
             int pRandLeave = rand()% 100 + 1;
             if (pRandLeave <= 10){
-                line.delete_pos();
+                line.delete_pos(3);
             }
 
             int pVIP = rand()% 100 + 1;
             if (pVIP <= 10){
-                line.push_front();
+                line.push_front(randName);
             }
 
             cout << setw(15) << "Resulting Line:\n";
+            line.print();
         }
 
         fin.close();
