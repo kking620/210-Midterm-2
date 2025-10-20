@@ -118,7 +118,7 @@ public:
         Node* tempPrev = temp->prev;
         tempPrev->next = temp->next;
         temp->next->prev = tempPrev;
-        cout << temp->name << " left the line\n";
+        cout << setw(15) << temp->name << " left the line\n";
         delete temp;
     }
 
@@ -203,7 +203,7 @@ public:
             cout << setw(15) << current->name << " \n";
             current = current->next;
         }
-        cout << endl;
+        cout << endl << endl;
     }
 
     void print_reverse() {
@@ -233,17 +233,19 @@ int main() {
         
         DoublyLinkedList line;
 
+        int lineSize = 0;
+        
+        cout << "Store opens:\n";
         for (int i = 0; i < 5; i++){
             line.push_back(names[rand()%names.size()]);
+            lineSize++;
         }
-
-        cout << "Store opens:\n";
         line.print();
+        int timeSteps = 20;        
 
-        int lineSize = 5;
-        int timeSteps = 1;
-
-        for (int i = 0; i < 20; i++){
+        for (int i = 0; i < timeSteps; i++){
+            cout << setw(10) << "Time Step #" << i + 1 << endl;
+            
             int pHelp = rand()% 100 + 1;
             if (pHelp <= 40){
                 line.pop_front();
@@ -274,7 +276,6 @@ int main() {
                 lineSize--;
             }
 
-            cout << setw(10) << "Time Step #" << timeSteps++ << endl;
             cout << setw(15) << "Resulting Line:\n";
             line.print();
         }
